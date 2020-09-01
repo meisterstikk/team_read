@@ -161,27 +161,31 @@
 
     - View Model 추가
 
-### 1차 완성본에 대한 기능적/비기능적 요구사항을 커버하는지 검증
+### 시나리오 체크(1) : 예약부터 확정 Noti까지
 
-![image](https://user-images.githubusercontent.com/487999/79684167-3ecd2f00-826a-11ea-806a-957362d197e3.png)
+![image](https://user-images.githubusercontent.com/19251601/91857981-990fdf00-eca3-11ea-8e4d-13e67a9fd0e3.png)
 
     - 고객이 메뉴를 선택하여 주문한다 (ok)
     - 고객이 결제한다 (ok)
     - 주문이 되면 주문 내역이 입점상점주인에게 전달된다 (ok)
     - 상점주인이 확인하여 요리해서 배달 출발한다 (ok)
 
-![image](https://user-images.githubusercontent.com/487999/79684170-47256a00-826a-11ea-9777-e16fafff519a.png)
+### 시나리오 체크(2) : 수업결과 등록과 결과 Noti
+
+![image](https://user-images.githubusercontent.com/19251601/91858085-b04ecc80-eca3-11ea-8f84-740a5cee7842.png)
     - 고객이 주문을 취소할 수 있다 (ok)
     - 주문이 취소되면 배달이 취소된다 (ok)
     - 고객이 주문상태를 중간중간 조회한다 (View-green sticker 의 추가로 ok) 
     - 주문상태가 바뀔 때 마다 카톡으로 알림을 보낸다 (?)
 
+### 시나리오 체크(3)
 
-### 모델 수정
+![image](https://user-images.githubusercontent.com/19251601/91858150-c3fa3300-eca3-11ea-9b60-68b6ba083497.png)
+    - 고객이 주문을 취소할 수 있다 (ok)
+    - 주문이 취소되면 배달이 취소된다 (ok)
+    - 고객이 주문상태를 중간중간 조회한다 (View-green sticker 의 추가로 ok) 
+    - 주문상태가 바뀔 때 마다 카톡으로 알림을 보낸다 (?)
 
-![image](https://user-images.githubusercontent.com/487999/79684176-4e4c7800-826a-11ea-8deb-b7b053e5d7c6.png)
-    
-    - 수정된 모델은 모든 요구사항을 커버함.
 
 ### 비기능 요구사항에 대한 검증
 
@@ -197,7 +201,7 @@
 
 ## 헥사고날 아키텍처 다이어그램 도출
     
-![image](https://user-images.githubusercontent.com/487999/79684772-eba9ab00-826e-11ea-9405-17e2bf39ec76.png)
+![image](https://user-images.githubusercontent.com/19251601/91858260-e55b1f00-eca3-11ea-8875-0424a8bc7758.png)
 
 
     - Chris Richardson, MSA Patterns 참고하여 Inbound adaptor와 Outbound adaptor를 구분함
