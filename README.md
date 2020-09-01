@@ -177,12 +177,14 @@
 ### 시나리오 체크(2) : 수업결과 등록과 결과 Noti
 
 ![image](https://user-images.githubusercontent.com/19251601/91858085-b04ecc80-eca3-11ea-8f84-740a5cee7842.png)
+
     - 강사는 수업을 진행한 후 수업결과를 등록한다. (ok)
     - 수업결과가 등록되면 고객은 수업결과 확인 알림을 받는다.(ok)
 
 ### 시나리오 체크(3)
 
 ![image](https://user-images.githubusercontent.com/19251601/91858150-c3fa3300-eca3-11ea-9b60-68b6ba083497.png)
+
     - 고객은 PT수강신청을 취소할 수 있다.
     - PT수강신청이 취소되면 배정된 강사와 확정된 스케줄은 취소된다.
 
