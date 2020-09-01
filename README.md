@@ -165,27 +165,25 @@
 
 ![image](https://user-images.githubusercontent.com/19251601/91857981-990fdf00-eca3-11ea-8e4d-13e67a9fd0e3.png)
 
-    - 고객이 메뉴를 선택하여 주문한다 (ok)
-    - 고객이 결제한다 (ok)
     - 주문이 되면 주문 내역이 입점상점주인에게 전달된다 (ok)
     - 상점주인이 확인하여 요리해서 배달 출발한다 (ok)
+    - 고객이 PT수강신청을 한다. (ok)
+    - PT수강신청에 대한 접수가 되면, 고객관리 담당자가 강사를 할당한다. (ok)
+    - 강사가 할당 되면 해당 강사에게 스케줄 확정 요청을 한다. (ok)
+    - 강사는 스케줄을 확정한다. (ok)
+    - 강사가 스케줄을 확정하면 PT수강신청이 완료된다.(ok)
 
 ### 시나리오 체크(2) : 수업결과 등록과 결과 Noti
 
 ![image](https://user-images.githubusercontent.com/19251601/91858085-b04ecc80-eca3-11ea-8f84-740a5cee7842.png)
-    - 고객이 주문을 취소할 수 있다 (ok)
-    - 주문이 취소되면 배달이 취소된다 (ok)
-    - 고객이 주문상태를 중간중간 조회한다 (View-green sticker 의 추가로 ok) 
-    - 주문상태가 바뀔 때 마다 카톡으로 알림을 보낸다 (?)
+    - 강사는 수업을 진행한 후 수업결과를 등록한다. (ok)
+    - 수업결과가 등록되면 고객은 수업결과 확인 알림을 받는다.(ok)
 
 ### 시나리오 체크(3)
 
 ![image](https://user-images.githubusercontent.com/19251601/91858150-c3fa3300-eca3-11ea-9b60-68b6ba083497.png)
-    - 고객이 주문을 취소할 수 있다 (ok)
-    - 주문이 취소되면 배달이 취소된다 (ok)
-    - 고객이 주문상태를 중간중간 조회한다 (View-green sticker 의 추가로 ok) 
-    - 주문상태가 바뀔 때 마다 카톡으로 알림을 보낸다 (?)
-
+    - 고객은 PT수강신청을 취소할 수 있다.
+    - PT수강신청이 취소되면 배정된 강사와 확정된 스케줄은 취소된다.
 
 ### 비기능 요구사항에 대한 검증
 
@@ -615,13 +613,12 @@ http localhost:8081/orders item=피자 storeId=2   #Success
 ## 비동기식 호출 / 시간적 디커플링 / 장애격리 / 최종 (Eventual) 일관성 테스트
 
 
-수강신청(Ptorder) 이 이루어진 후에 고객관리(Ptmanager) 서비스로 이를 알려주는 행위는 비동기식으로 처리하여, 고객관리(Ptmanager) 서비스의 처리를 위하여 수강신청(Ptorder)이 블로킹 되지 않도록 처리한다.
-
+결제가 이루어진 후에 상점시스템으로 이를 알려주는 행위는 동기식이 아니라 비 동기식으로 처리하여 상점 시스템의 처리를 위하여 결제주문이 블로킹 되지 않아도록 처리한다.
  
-- 이를 위하여 PT수강신청에 기록을 남긴 후에 곧바로 PT수강신청이 되었다는 도메인 이벤트를 카프카로 송출한다.(Publish)
+- 이를 위하여 결제이력에 기록을 남긴 후에 곧바로 결제승인이 되었다는 도메인 이벤트를 카프카로 송출한다(Publish)
  
 ```
-package ptplatform3;
+package fooddelivery;
 
 @Entity
 @Table(name="결제이력_table")
@@ -637,79 +634,23 @@ public class 결제이력 {
 
 }
 ```
-- 고객관리(Ptmanager) 서비스에서는 PT수강신청이벤트에 대해서 이를 수신하여 자신의 정책을 처리하도록 PolicyHandler 를 구현한다.
+- 상점 서비스에서는 결제승인 이벤트에 대해서 이를 수신하여 자신의 정책을 처리하도록 PolicyHandler 를 구현한다:
 
 ```
-package ptplatform3;
+package fooddelivery;
 
 ...
 
 @Service
 public class PolicyHandler{
-    @StreamListener(KafkaProcessor.INPUT)
-    public void onStringEventListener(@Payload String eventString){
-    }
-
-    //HNR-START
-    @Autowired
-    PtmanagerRepository ptmanagerRepository;
-    //HNR--END-
 
     @StreamListener(KafkaProcessor.INPUT)
-    public void wheneverPtOrdered_PtOrderRequest(@Payload PtOrdered ptOrdered){
-        // 고객이 수강신청시 강사 배정 및 수강신청 허용 상태(ORDER_ACCEPTED) 저장
-        if(ptOrdered.isMe()){
-            System.out.println("##### listener PtOrderRequest : " + ptOrdered.toJson());
-            //HNR-START
-            Ptmanager ptmanager = new Ptmanager();
-            ptmanager.setPtOrderId(ptOrdered.getId());
-            ptmanager.setStatus("ORDER_ACCEPTED");
-            ptmanager.setTrainerId(ptOrdered.getId() + 2000);
-            ptmanager.setTrainerName("Good_Trainer_" + ptOrdered.getId());
-            ptmanagerRepository.save(ptmanager);
-            //HNR--END-
-        }
-    }
-    @StreamListener(KafkaProcessor.INPUT)
-    public void wheneverPtScheduleConfirmed_PtScheduleConfirmationNotify(@Payload PtScheduleConfirmed ptScheduleConfirmed){
+    public void whenever결제승인됨_주문정보받음(@Payload 결제승인됨 결제승인됨){
 
-        // PT수업 스케줄 확정시 해당 수강신청 확정 상태(ORDER_CONFIRMED) 저장
-        if(ptScheduleConfirmed.isMe()){
-            //HNR-START
-            try {
-                System.out.println("##### listener PtScheduleConfirmationNotify : " + ptScheduleConfirmed.toJson());
-                ptmanagerRepository.findById(ptScheduleConfirmed.getPtOrderId())
-                        .ifPresent(
-                                ptmanager -> {
-                                    ptmanager.setStatus("ORDER_CONFIRMED");
-                                    ptmanager.setPtTrainerId(ptScheduleConfirmed.getId());
-                                    ptmanagerRepository.save(ptmanager);
-                                }
-                        );
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            //Ptmanager ptmanager = new Ptmanager();
-            //ptmanager.setStatus("ORDER_CONFIRMED");
-            //ptmanager.setPtTrainerId(ptScheduleConfirmed.getId());
-
-            //HNR--END-
-        }
-    }
-    @StreamListener(KafkaProcessor.INPUT)
-    public void wheneverPtCancelOrdered_PtCancelOrderRequest(@Payload PtCancelOrdered ptCancelOrdered){
-
-        //PT수강신청 취소 요청 허용(ORDER_CANCEL_ACCEPTED) 상태 저장
-        if(ptCancelOrdered.isMe()){
-            try {
-                System.out.println("##### listener PtCancelOrderRequest : " + ptCancelOrdered.toJson());
-
-                Optional<Ptmanager> pm = ptmanagerRepository.findById(ptCancelOrdered.getId());
-                pm.get().setStatus("ORDER_CANCEL_ACCEPTED");
-                ptmanagerRepository.save(pm.get());
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+        if(결제승인됨.isMe()){
+            System.out.println("##### listener 주문정보받음 : " + 결제승인됨.toJson());
+            // 주문 정보를 받았으니, 요리를 슬슬 시작해야지..
+            
         }
     }
 
