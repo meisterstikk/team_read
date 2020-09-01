@@ -189,7 +189,7 @@
 
 ### 비기능 요구사항에 대한 검증
 
-![image](https://user-images.githubusercontent.com/487999/79684184-5c9a9400-826a-11ea-8d87-2ed1e44f4562.png)
+![image](https://user-images.githubusercontent.com/19251601/91858797-a4173f00-eca4-11ea-8e65-24487c2a24d2.png)
 
     - 마이크로 서비스를 넘나드는 시나리오에 대한 트랜잭션 처리
         - 고객 주문시 결제처리:  결제가 완료되지 않은 주문은 절대 받지 않는다는 경영자의 오랜 신념(?) 에 따라, ACID 트랜잭션 적용. 주문와료시 결제처리에 대해서는 Request-Response 방식 처리
@@ -207,7 +207,10 @@
     - Chris Richardson, MSA Patterns 참고하여 Inbound adaptor와 Outbound adaptor를 구분함
     - 호출관계에서 PubSub 과 Req/Resp 를 구분함
     - 서브 도메인과 바운디드 컨텍스트의 분리:  각 팀의 KPI 별로 아래와 같이 관심 구현 스토리를 나눠가짐
-
+    
+## 신규 서비스 추가 시 기존 서비스에 영향이 없도록 열린 아키텍쳐 설계
+    
+![image](https://user-images.githubusercontent.com/19251601/91858323-fd32a300-eca3-11ea-9ed3-02c6918c5c54.png)
 
 # 구현:
 
