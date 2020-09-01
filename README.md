@@ -140,7 +140,7 @@
 ### 어그리게잇으로 묶기
 ![image](https://user-images.githubusercontent.com/19251601/91854880-5cda7f80-ec9f-11ea-8f50-efee8df61055.png)
 
-    - app의 Order, store 의 주문처리, 결제의 결제이력은 그와 연결된 command 와 event 들에 의하여 트랜잭션이 유지되어야 하는 단위로 그들 끼리 묶어줌
+    - PT수강신청의 신청 및 취소신청, 고객관리의 수강확정 및 취소접수, 트레이너의 스켸쥴 및 수업결과는 그와 연결된 command 와 event 들에 의하여 트랜잭션이 유지되어야 하는 단위로 그들 끼리 묶어줌
 
 ### 바운디드 컨텍스트로 묶기
 
