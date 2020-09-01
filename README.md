@@ -706,7 +706,7 @@ http localhost:8080/orders     # 모든 주문의 상태가 "배송됨"으로 �
 ## CI/CD 설정
 
 
-각 구현체들은 각자의 source repository 에 구성되었고, 사용한 CI/CD 플랫폼은 GCP를 사용하였으며, pipeline build script 는 각 프로젝트 폴더 이하에 cloudbuild.yml 에 포함되었다.
+각 구현체들은 각자의 source repository 에 구성되었고, 사용한 CI/CD 플랫폼은 AWS CodeBuild를 사용하였으며, pipeline build script 는 각 프로젝트 폴더 이하에 buildspec.yml 에 포함되었다. 아래 Github 소스 코드 변경 시, CodeBuild 빌드/배포가 자동 시작되도록 구성하였다.
 
 
 ## 동기식 호출 / 서킷 브레이킹 / 장애격리
@@ -888,7 +888,7 @@ Shortest transaction:	        0.00
 앞서 CB 는 시스템을 안정되게 운영할 수 있게 해줬지만 사용자의 요청을 100% 받아들여주지 못했기 때문에 이에 대한 보완책으로 자동화된 확장 기능을 적용하고자 한다. 
 
 
-- 결제서비스에 대한 replica 를 동적으로 늘려주도록 HPA 를 설정한다. 설정은 CPU 사용량이 15프로를 넘어서면 replica 를 10개까지 늘려준다:
+- metric 서버 설치 후, 명령 $ kubectl autoscale deployment ptorder --cpu-percent=1 --min=1 --max=10 적용하여 스케일 아웃 되는 장면
 ```
 kubectl autoscale deploy pay --min=1 --max=10 --cpu-percent=15
 ```
