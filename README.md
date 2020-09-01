@@ -128,32 +128,32 @@
 ![image](https://user-images.githubusercontent.com/19251601/91854295-7af3b000-ec9e-11ea-9de1-7e195e9c15ae.png)
 
     - 과정중 도출된 잘못된 도메인 이벤트들을 걸러내는 작업을 수행함
-        - 주문시>메뉴카테고리선택됨, 주문시>메뉴검색됨 :  UI 의 이벤트이지, 업무적인 의미의 이벤트가 아니라서 제외
+    - 중복/불필요, 처리 프로세스에 해당하는 이벤트 제거
+    
+### 폴리시 부착
+![image](https://user-images.githubusercontent.com/19251601/91854584-e8074580-ec9e-11ea-8626-e2d3fa9b360c.png)
 
 ### 액터, 커맨드 부착하여 읽기 좋게
-![image](https://user-images.githubusercontent.com/487999/79683614-4ee30f80-8266-11ea-9a50-68cdff2dcc46.png)
+![image](https://user-images.githubusercontent.com/19251601/91854676-0bca8b80-ec9f-11ea-892c-5136a4d54f2e.png)
 
 ### 어그리게잇으로 묶기
-![image](https://user-images.githubusercontent.com/487999/79683618-52769680-8266-11ea-9c21-48d6812444ba.png)
+![image](https://user-images.githubusercontent.com/19251601/91854880-5cda7f80-ec9f-11ea-8f50-efee8df61055.png)
 
     - app의 Order, store 의 주문처리, 결제의 결제이력은 그와 연결된 command 와 event 들에 의하여 트랜잭션이 유지되어야 하는 단위로 그들 끼리 묶어줌
 
 ### 바운디드 컨텍스트로 묶기
 
-![image](https://user-images.githubusercontent.com/487999/79683625-560a1d80-8266-11ea-9790-40d68a36d95d.png)
+![image](https://user-images.githubusercontent.com/19251601/91854989-81cef280-ec9f-11ea-8bd5-50602fced150.png)
 
     - 도메인 서열 분리 
         - Core Domain:  app(front), store : 없어서는 안될 핵심 서비스이며, 연견 Up-time SLA 수준을 99.999% 목표, 배포주기는 app 의 경우 1주일 1회 미만, store 의 경우 1개월 1회 미만
         - Supporting Domain:   marketing, customer : 경쟁력을 내기위한 서비스이며, SLA 수준은 연간 60% 이상 uptime 목표, 배포주기는 각 팀의 자율이나 표준 스프린트 주기가 1주일 이므로 1주일 1회 이상을 기준으로 함.
         - General Domain:   pay : 결제서비스로 3rd Party 외부 서비스를 사용하는 것이 경쟁력이 높음 (핑크색으로 이후 전환할 예정)
 
-### 폴리시 부착 (괄호는 수행주체, 폴리시 부착을 둘째단계에서 해놔도 상관 없음. 전체 연계가 초기에 드러남)
-
-![image](https://user-images.githubusercontent.com/487999/79683633-5aced180-8266-11ea-8f42-c769eb88dfb1.png)
 
 ### 폴리시의 이동과 컨텍스트 매핑 (점선은 Pub/Sub, 실선은 Req/Resp)
 
-![image](https://user-images.githubusercontent.com/487999/79683641-5f938580-8266-11ea-9fdb-4e80ff6642fe.png)
+![image](https://user-images.githubusercontent.com/19251601/91855088-9f03c100-ec9f-11ea-8070-ac620fc71e2a.png)
 
 ### 완성된 1차 모형
 
