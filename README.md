@@ -146,10 +146,7 @@
 
 ![image](https://user-images.githubusercontent.com/19251601/91854989-81cef280-ec9f-11ea-8bd5-50602fced150.png)
 
-    - 도메인 서열 분리 
-        - Core Domain:  app(front), store : 없어서는 안될 핵심 서비스이며, 연견 Up-time SLA 수준을 99.999% 목표, 배포주기는 app 의 경우 1주일 1회 미만, store 의 경우 1개월 1회 미만
-        - Supporting Domain:   marketing, customer : 경쟁력을 내기위한 서비스이며, SLA 수준은 연간 60% 이상 uptime 목표, 배포주기는 각 팀의 자율이나 표준 스프린트 주기가 1주일 이므로 1주일 1회 이상을 기준으로 함.
-        - General Domain:   pay : 결제서비스로 3rd Party 외부 서비스를 사용하는 것이 경쟁력이 높음 (핑크색으로 이후 전환할 예정)
+    - 도메인 서열 분리 : PT수강신청 > 고객관리 = 트레이너 로 정의
 
 
 ### 폴리시의 이동과 컨텍스트 매핑 (점선은 Pub/Sub, 실선은 Req/Resp)
@@ -166,8 +163,6 @@
 
 ![image](https://user-images.githubusercontent.com/19251601/91857981-990fdf00-eca3-11ea-8e4d-13e67a9fd0e3.png)
 
-    - 주문이 되면 주문 내역이 입점상점주인에게 전달된다 (ok)
-    - 상점주인이 확인하여 요리해서 배달 출발한다 (ok)
     - 고객이 PT수강신청을 한다. (ok)
     - PT수강신청에 대한 접수가 되면, 고객관리 담당자가 강사를 할당한다. (ok)
     - 강사가 할당 되면 해당 강사에게 스케줄 확정 요청을 한다. (ok)
