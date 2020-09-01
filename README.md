@@ -122,7 +122,7 @@
 
 
 ### 이벤트 도출
-https://github.com/kberryfighting/team_read/issues/1#issue-690119144
+![image](https://user-images.githubusercontent.com/19251601/91854433-b2faf300-ec9e-11ea-9234-58ea159c6920.png)
 
 ### 부적격 이벤트 탈락
 ![image](https://user-images.githubusercontent.com/19251601/91854295-7af3b000-ec9e-11ea-9de1-7e195e9c15ae.png)
