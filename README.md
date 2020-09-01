@@ -553,12 +553,11 @@ CMD ["python", "policy-handler.py"]
 
 ## 동기식 호출 과 Fallback 처리
 
-분석단계에서의 조건 중 하나로 주문(app)->결제(pay) 간의 호출은 동기식 일관성을 유지하는 트랜잭션으로 처리하기로 하였다. 호출 프로토콜은 이미 앞서 Rest Repository 에 의해 노출되어있는 REST 서비스를 FeignClient 를 이용하여 호출하도록 한다. 
-
-- 결제서비스를 호출하기 위하여 Stub과 (FeignClient) 를 이용하여 Service 대행 인터페이스 (Proxy) 를 구현 
+고객관리(ptmanager)의 이벤트 '수강취소 접수됨'과 트레이너(pttrailner)의 커맨드 '수업 스케쥴 취소 됨' 간의 호출은 동기식 일관성을 유지하는 트랜잭션으로 처리하기로 하였다.
+- '수업 스케쥴 취소 됨'를 호출하기 위하여 Stub과 (FeignClient) 를 이용하여 Service 대행 인터페이스 (Proxy) 를 구현
 
 ```
-# (app) 결제이력Service.java
+# Ptmanager.java
 
 package fooddelivery.external;
 
@@ -571,9 +570,9 @@ public interface 결제이력Service {
 }
 ```
 
-- 주문을 받은 직후(@PostPersist) 결제를 요청하도록 처리
+- '수강취소접수됨' 직후(@PostPersist) '수업스케쥴취소'를 요청하도록 처리
 ```
-# Order.java (Entity)
+# Ptmanager.java (Entity)
 
     @PostPersist
     public void onPostPersist(){
