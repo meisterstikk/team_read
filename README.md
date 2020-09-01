@@ -544,44 +544,103 @@ http localhost:8081/orders item=피자 storeId=2   #Success
 - 이를 위하여 PT수강신청에 기록을 남긴 후에 곧바로 PT수강신청이 되었다는 도메인 이벤트를 카프카로 송출한다.(Publish)
  
 ```
-package fooddelivery;
+package ptplatform3;
 
 @Entity
-@Table(name="결제이력_table")
-public class 결제이력 {
+@Table(name="Ptorder_table")
+public class Ptorder {
 
  ...
-    @PrePersist
-    public void onPrePersist(){
-        결제승인됨 결제승인됨 = new 결제승인됨();
-        BeanUtils.copyProperties(this, 결제승인됨);
-        결제승인됨.publish();
+    @PostPersist
+    public void onPostPersist(){
+            System.out.println("[HNR_DEBUG] ###########################");
+            System.out.println("[HNR_DEBUG] ######### ORDERED #########");
+            System.out.println("[HNR_DEBUG] ###########################");
+            PtOrdered ptOrdered = new PtOrdered();
+            BeanUtils.copyProperties(this, ptOrdered);
+            ptOrdered.publishAfterCommit();
     }
-
 }
 ```
 - 고객관리(Ptmanager) 서비스에서는 PT수강신청이벤트에 대해서 이를 수신하여 자신의 정책을 처리하도록 PolicyHandler 를 구현한다.
 
 ```
-package fooddelivery;
+package ptplatform3;
 
 ...
 
 @Service
 public class PolicyHandler{
+    @StreamListener(KafkaProcessor.INPUT)
+    public void onStringEventListener(@Payload String eventString){
+
+    }
+
+    //HNR-START
+    @Autowired
+    PtmanagerRepository ptmanagerRepository;
+    //HNR--END-
 
     @StreamListener(KafkaProcessor.INPUT)
-    public void whenever결제승인됨_주문정보받음(@Payload 결제승인됨 결제승인됨){
+    public void wheneverPtOrdered_PtOrderRequest(@Payload PtOrdered ptOrdered){
 
-        if(결제승인됨.isMe()){
-            System.out.println("##### listener 주문정보받음 : " + 결제승인됨.toJson());
-            // 주문 정보를 받았으니, 요리를 슬슬 시작해야지..
-            
+        // 고객이 수강신청시 강사 배정 및 수강신청 허용 상태(ORDER_ACCEPTED) 저장
+        if(ptOrdered.isMe()){
+            System.out.println("##### listener PtOrderRequest : " + ptOrdered.toJson());
+            //HNR-START
+            Ptmanager ptmanager = new Ptmanager();
+            ptmanager.setPtOrderId(ptOrdered.getId());
+            ptmanager.setStatus("ORDER_ACCEPTED");
+            ptmanager.setTrainerId(ptOrdered.getId() + 2000);
+            ptmanager.setTrainerName("Good_Trainer_" + ptOrdered.getId());
+            ptmanagerRepository.save(ptmanager);
+            //HNR--END-
+        }
+    }
+    @StreamListener(KafkaProcessor.INPUT)
+    public void wheneverPtScheduleConfirmed_PtScheduleConfirmationNotify(@Payload PtScheduleConfirmed ptScheduleConfirmed){
+
+        // PT수업 스케줄 확정시 해당 수강신청 확정 상태(ORDER_CONFIRMED) 저장
+        if(ptScheduleConfirmed.isMe()){
+            //HNR-START
+            try {
+                System.out.println("##### listener PtScheduleConfirmationNotify : " + ptScheduleConfirmed.toJson());
+                ptmanagerRepository.findById(ptScheduleConfirmed.getPtOrderId())
+                        .ifPresent(
+                                ptmanager -> {
+                                    ptmanager.setStatus("ORDER_CONFIRMED");
+                                    ptmanager.setPtTrainerId(ptScheduleConfirmed.getId());
+                                    ptmanagerRepository.save(ptmanager);
+                                }
+                        );
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            //Ptmanager ptmanager = new Ptmanager();
+            //ptmanager.setStatus("ORDER_CONFIRMED");
+            //ptmanager.setPtTrainerId(ptScheduleConfirmed.getId());
+
+            //HNR--END-
+        }
+    }
+    @StreamListener(KafkaProcessor.INPUT)
+    public void wheneverPtCancelOrdered_PtCancelOrderRequest(@Payload PtCancelOrdered ptCancelOrdered){
+
+        //PT수강신청 취소 요청 허용(ORDER_CANCEL_ACCEPTED) 상태 저장
+        if(ptCancelOrdered.isMe()){
+            try {
+                System.out.println("##### listener PtCancelOrderRequest : " + ptCancelOrdered.toJson());
+
+                Optional<Ptmanager> pm = ptmanagerRepository.findById(ptCancelOrdered.getId());
+                pm.get().setStatus("ORDER_CANCEL_ACCEPTED");
+                ptmanagerRepository.save(pm.get());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
 
 }
-
 ```
 실제 구현을 하자면, 카톡 등으로 점주는 노티를 받고, 요리를 마친후, 주문 상태를 UI에 입력할테니, 우선 주문정보를 DB에 받아놓은 후, 이후 처리는 해당 Aggregate 내에서 하면 되겠다.:
   
