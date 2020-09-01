@@ -301,35 +301,220 @@ http localhost:8081/orders/1
 
 ## 폴리글랏 퍼시스턴스
 
-앱프런트 (app) 는 서비스 특성상 많은 사용자의 유입과 상품 정보의 다양한 콘텐츠를 저장해야 하는 특징으로 인해 RDB 보다는 Document DB / NoSQL 계열의 데이터베이스인 Mongo DB 를 사용하기로 하였다. 이를 위해 order 의 선언에는 @Entity 가 아닌 @Document 로 마킹되었으며, 별다른 작업없이 기존의 Entity Pattern 과 Repository Pattern 적용과 데이터베이스 제품의 설정 (application.yml) 만으로 MongoDB 에 부착시켰다
+각 서비스에서 도출된 핵심 Aggregate인 객체 3개를 Entity로 선언하였다.
+유비쿼터스 랭귀지 
+
 
 ```
-# Order.java
+# Ptorder.java
 
-package fooddelivery;
+package ptplatform3;
 
-@Document
-public class Order {
+@Entity
+@Table(name="Ptorder_table")
+public class Ptorder {
 
-    private String id; // mongo db 적용시엔 id 는 고정값으로 key가 자동 발급되는 필드기 때문에 @Id 나 @GeneratedValue 를 주지 않아도 된다.
-    private String item;
-    private Integer 수량;
+    @Id
+    @GeneratedValue(strategy=GenerationType.AUTO)
+    private Long id;
+    private Long ptManagerId;
+    private Long ptTrainerId;
+    private String status;
+    private Long ptClassId;
+    private String ptClassName;
+    private Long customerId;
+    private String customerName;
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+    public Long getPtManagerId() {
+        return ptManagerId;
+    }
+
+    public void setPtManagerId(Long ptManagerId) {
+        this.ptManagerId = ptManagerId;
+    }
+    public Long getPtTrainerId() {
+        return ptTrainerId;
+    }
+
+    public void setPtTrainerId(Long ptTrainerId) {
+        this.ptTrainerId = ptTrainerId;
+    }
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+    public Long getPtClassId() {
+        return ptClassId;
+    }
+
+    public void setPtClassId(Long ptClassId) {
+        this.ptClassId = ptClassId;
+    }
+    public String getPtClassName() {
+        return ptClassName;
+    }
+
+    public void setPtClassName(String ptClassName) {
+        this.ptClassName = ptClassName;
+    }
+    public Long getCustomerId() {
+        return customerId;
+    }
+
+    public void setCustomerId(Long customerId) {
+        this.customerId = customerId;
+    }
+    public String getCustomerName() {
+        return customerName;
+    }
+
+    public void setCustomerName(String customerName) {
+        this.customerName = customerName;
+    }
+
+
+
+# Ptmanager.java
+package ptplatform3;
+
+@Entity
+@Table(name="Ptmanager_table")
+public class Ptmanager {
+
+    @Id
+    @GeneratedValue(strategy=GenerationType.AUTO)
+    private Long id;
+    private Long ptOrderId;
+    private Long ptTrainerId;
+    private String status;
+    private Long trainerId;
+    private String trainerName;
+
+
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+    public Long getPtOrderId() {
+        return ptOrderId;
+    }
+
+    public void setPtOrderId(Long ptOrderId) {
+        this.ptOrderId = ptOrderId;
+    }
+    public Long getPtTrainerId() {
+        return ptTrainerId;
+    }
+
+    public void setPtTrainerId(Long ptTrainerId) {
+        this.ptTrainerId = ptTrainerId;
+    }
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+    public Long getTrainerId() {
+        return trainerId;
+    }
+
+    public void setTrainerId(Long trainerId) {
+        this.trainerId = trainerId;
+    }
+    public String getTrainerName() {
+        return trainerName;
+    }
+
+    public void setTrainerName(String trainerName) {
+        this.trainerName = trainerName;
+    }
 }
 
 
-# 주문Repository.java
-package fooddelivery;
+# Pttrainer.java
+package ptplatform3;
 
-public interface 주문Repository extends JpaRepository<Order, UUID>{
+@Entity
+@Table(name="Pttrainer_table")
+public class Pttrainer {
+
+    @Id
+    @GeneratedValue(strategy=GenerationType.AUTO)
+    private Long id;
+    private Long ptOrderId;
+    private Long ptManagerId;
+    private String status;
+    private String ptResult;
+    private String ptClassDate;
+    // private Long ptTrainerId4Cancel;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(final Long id) {
+        this.id = id;
+    }
+    public Long getPtOrderId() {
+        return ptOrderId;
+    }
+
+    public void setPtOrderId(final Long ptOrderId) {
+        this.ptOrderId = ptOrderId;
+    }
+    public Long getPtManagerId() {
+        return ptManagerId;
+    }
+
+    public void setPtManagerId(final Long ptManagerId) {
+        this.ptManagerId = ptManagerId;
+    }
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(final String status) {
+        this.status = status;
+    }
+    public String getPtResult() {
+        return ptResult;
+    }
+
+    public void setPtResult(final String ptResult) {
+        this.ptResult = ptResult;
+    }
+    public String getPtClassDate() {
+        return ptClassDate;
+    }
+
+    public void setPtClassDate(final String ptClassDate) {
+        this.ptClassDate = ptClassDate;
+    }
+
+    // public Long getPtTrainerId4Cancel() {
+    //     return ptTrainerId4Cancel;
+    // }
+
+    // public void setPtTrainerId4Cancel(Long ptTrainerId4Cancel) {
+    //     this.ptTrainerId4Cancel = ptTrainerId4Cancel;
+    // }
 }
-
-# application.yml
-
-  data:
-    mongodb:
-      host: mongodb.default.svc.cluster.local
-    database: mongo-example
 
 ```
 
