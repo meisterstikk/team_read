@@ -971,4 +971,11 @@ Amazon EKS 제어 플레인 모니터링/로깅은 Amazon EKS 제어 플레인�
 - rolling_out
 ![rolling_out](https://user-images.githubusercontent.com/19251601/91920257-76151780-ed03-11ea-8e18-52efb2530181.PNG)
 
+-기본2_1
+![1](https://user-images.githubusercontent.com/19251601/91920967-5252d100-ed05-11ea-8c27-10d80a52ca82.PNG)
 
+-기본2_2
+![2](https://user-images.githubusercontent.com/19251601/91921010-6b5b8200-ed05-11ea-9306-bf2b0d8187c6.PNG)
+
+-기본2_3
+![3](https://user-images.githubusercontent.com/19251601/91921032-7adacb00-ed05-11ea-8dde-7fdc55992811.PNG)
