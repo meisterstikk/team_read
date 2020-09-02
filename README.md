@@ -114,7 +114,7 @@
   ![image](https://user-images.githubusercontent.com/487999/79684144-2a893200-826a-11ea-9a01-79927d3a0107.png)
 
 ## TO-BE 조직 (Vertically-Aligned)
-  ![image](https://user-images.githubusercontent.com/487999/79684159-3543c700-826a-11ea-8d5f-a3fc0c4cad87.png)
+  ![tobe](https://user-images.githubusercontent.com/19251601/91925117-508e0b00-ed0f-11ea-8ad6-5f0946bb5950.png)
 
 
 
