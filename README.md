@@ -473,28 +473,44 @@ pom.yml : mysql driver 설정
 ```
 # Ptmanager.java
 
-???????????????
+@FeignClient(name="feignpttrainer", url="${feignpttrainer.url}")
+public interface PttrainerService {
+
+    // @PostMapping(value="/pttrainer/{ptOrderId}")
+    // public void ptScheduleCancellation(@PathVariable("ptOrderId") Long ptOrderId, String status);
+
+    @RequestMapping(method = RequestMethod.POST, value = "/pttrainers")
+    // Store update(@PathVariable("storeId") Long storeId, Store store);
+    public void ptScheduleCancellation(@PathVariable("ptOrderId") Long ptTrainerId, @PathVariable("status") String status);
+}
 ```
 
 - '수강취소접수됨' 직후(@PostUpdate) '수업스케쥴취소'를 요청하도록 처리
 ```
 # Ptmanager.java
 
-    @PostUpdate
+   @PostUpdate
     public void onPostUpdate(){
-    try {
-    ...
-           // REQ-RES 강사스케줄 취소
-          System.out.println("[HNR_DEBUG] ###################################################");
-          System.out.println("[HNR_DEBUG] ######### ORDER_CANCEL_ACCEPTED (REQ/RES) #########");
-          System.out.println("[HNR_DEBUG] ###################################################");
-
-          System.out.println("[HNR_DEBUG] getPtOrderId() : " + getPtOrderId());
-          PttrainerService pttrainerService = PtmanagerApplication.applicationContext.getBean(PttrainerService.class);
-          pttrainerService.ptScheduleCancellation(getPtOrderId(), "SCHEDULE_CANCELED");
-       }  catch (Exception e) {
+        try {
+            if(this.getStatus().equals("ORDER_CONFIRMED")) {
+                System.out.println("[HNR_DEBUG] ###################################");
+                System.out.println("[HNR_DEBUG] ######### ORDER_CONFIRMED #########");
+                System.out.println("[HNR_DEBUG] ###################################");
+                PtOrderConfirmed ptOrderConfirmed = new PtOrderConfirmed();
+                BeanUtils.copyProperties(this, ptOrderConfirmed);
+                ptOrderConfirmed.publishAfterCommit();
+            } else if(this.getStatus().equals("ORDER_CANCEL_ACCEPTED")) {
+                // REQ-RES 강사스케줄 취소
+                System.out.println("[HNR_DEBUG] ###################################################");
+                System.out.println("[HNR_DEBUG] ######### ORDER_CANCEL_ACCEPTED (REQ/RES) #########");
+                System.out.println("[HNR_DEBUG] ###################################################");
+                System.out.println("[HNR_DEBUG] getPtOrderId() : " + getPtOrderId());
+                PttrainerService pttrainerService = PtmanagerApplication.applicationContext.getBean(PttrainerService.class);
+                pttrainerService.ptScheduleCancellation(getPtOrderId(), "SCHEDULE_CANCELED");
+            }
+        } catch (Exception e) {
             e.printStackTrace();
-       }
+        }
     }
 ```
 
@@ -714,8 +730,10 @@ hystrix:
 ```
 
 * 부하테스터 siege 툴을 통한 서킷 브레이커 동작 확인:
-- 동시사용자 100명
-- 60초 동안 실시
+- siege 툴이 PATCH 기능을 지원하지 않아 테스트 실패
+- 장애격리 테스트는 ㅔPOST, REQ/RES 구조에서 테스트를 진행해야 할 것으로 보임
+
+![circuit_err](https://user-images.githubusercontent.com/19251601/91926277-e1fe7c80-ed11-11ea-8b7c-78283381d4cb.PNG)
 
 
 ### 오토스케일 아웃
