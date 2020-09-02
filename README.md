@@ -762,46 +762,12 @@ hystrix:
 ## ConfigMap 적용
   - 설정의 외부주입을 통한 유연성을 제공하기 위해 ConfigMap 사용
 ![configmap](https://user-images.githubusercontent.com/19251601/91919835-37cb2880-ed02-11ea-80ee-27819089ac5e.PNG)
-  
+
+![secret](https://user-images.githubusercontent.com/19251601/91919886-5d583200-ed02-11ea-92cf-107aaf6fd4c1.PNG)
   
 ## Secret 적용
 
 ![config_secret_deployment](https://user-images.githubusercontent.com/19251601/91919822-2b46d000-ed02-11ea-839f-7c1b55c31e24.PNG)
-
-![secret](https://user-images.githubusercontent.com/19251601/91919886-5d583200-ed02-11ea-92cf-107aaf6fd4c1.PNG)
-
-# 운영 모니터링
-
-## 마스터 노드 모니터링
-
-Amazon EKS 제어 플레인 모니터링/로깅은 Amazon EKS 제어 플레인에서 계정의 CloudWatch Logs로 감사 및 진단 로그를 직접 제공한다.
-
-  - 사용할 수 있는 클러스터 제어 플레인 로그 유형은 다음과 같다.
-'''
-  - Kubernetes API 서버 컴포넌트 로그(api)
-  - 감사(audit) 
-  - 인증자(authenticator) 
-  - 컨트롤러 관리자(controllerManager)
-  - 스케줄러(scheduler)
-
-출처 : https://docs.aws.amazon.com/ko_kr/eks/latest/userguide/logging-monitoring.html
-'''
-
-##  워커 노드 모니터링
-  - 쿠버네티스 모니터링 솔루션 중에 가장 인기 많은 것은 Heapster와 Prometheus 이다.
-
-  - Heapster는 쿠버네티스에서 기본적으로 제공이 되며, 클러스터 내의 모니터링과 이벤트 데이터를 수집한다.
-
-  - Prometheus는 CNCF에 의해 제공이 되며, 쿠버네티스의 각 다른 객체와 구성으로부터 리소스 사용을 수집할 수 있다.
-
-  - 쿠버네티스에서 로그를 수집하는 가장 흔한 방법은 fluentd를 사용하는 Elasticsearch 이며, fluentd는 node에서 에이전트로 작동하며 커스텀 설정이 가능하다.
-
-  - 그 외 오픈소스를 활용하여 Worker Node 모니터링이 가능하다.
- 
- 
-## 운영 모니터링 istio, mixer, grafana, kiali를 사용한 예이다.
-
-
 
 
 
