@@ -766,12 +766,9 @@ hystrix:
   
 ## Secret 적용
 
-- config_secret_deployment
 ![config_secret_deployment](https://user-images.githubusercontent.com/19251601/91919822-2b46d000-ed02-11ea-839f-7c1b55c31e24.PNG)
 
-- configmap_secret_deployment.yaml
-![configmap_secret_deployment yaml](https://user-images.githubusercontent.com/19251601/91919856-46194480-ed02-11ea-985e-209e3c72da64.PNG)
-
+![secret](https://user-images.githubusercontent.com/19251601/91919886-5d583200-ed02-11ea-92cf-107aaf6fd4c1.PNG)
 
 # 운영 모니터링
 
