@@ -169,12 +169,16 @@
     - 강사는 스케줄을 확정한다. (ok)
     - 강사가 스케줄을 확정하면 PT수강신청이 완료된다.(ok)
 
+![1](https://user-images.githubusercontent.com/19251601/91920967-5252d100-ed05-11ea-8c27-10d80a52ca82.PNG)
+
 ### 시나리오 체크(2) : 수업결과 등록과 결과 Noti
 
 ![image](https://user-images.githubusercontent.com/19251601/91858085-b04ecc80-eca3-11ea-8f84-740a5cee7842.png)
 
     - 강사는 수업을 진행한 후 수업결과를 등록한다. (ok)
     - 수업결과가 등록되면 고객은 수업결과 확인 알림을 받는다.(ok)
+    
+![2](https://user-images.githubusercontent.com/19251601/91921010-6b5b8200-ed05-11ea-9306-bf2b0d8187c6.PNG)
 
 ### 시나리오 체크(3)
 
@@ -182,6 +186,8 @@
 
     - 고객은 PT수강신청을 취소할 수 있다.
     - PT수강신청이 취소되면 배정된 강사와 확정된 스케줄은 취소된다.
+ 
+![3](https://user-images.githubusercontent.com/19251601/91921032-7adacb00-ed05-11ea-8dde-7fdc55992811.PNG)
 
 ### 비기능 요구사항에 대한 검증
 
@@ -867,14 +873,6 @@ Shortest transaction:	        0.00
 ![image](https://user-images.githubusercontent.com/19251601/91865382-4e469500-ecac-11ea-8f14-3ad6f75ac7e7.png)
 
 
-- live_deploy_update(무정지 배포에 추가)
-![live_deploy_update](https://user-images.githubusercontent.com/19251601/91919962-a14b3700-ed02-11ea-84a9-3075bb5ab2d6.PNG)
-
-- liveness_readiness_after(무정지 배포에 추가)
-![liveness_readiness_after](https://user-images.githubusercontent.com/19251601/91919973-ae682600-ed02-11ea-9f03-b1caf994849a.PNG)
-
-- liveness_readiness_before(무정지 배포에 추가)
-![liveness_readiness_before](https://user-images.githubusercontent.com/19251601/91920008-baec7e80-ed02-11ea-8ada-95cd2e6810e8.PNG)
 
 
 ## ConfigMap 적용
