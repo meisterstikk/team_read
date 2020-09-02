@@ -445,6 +445,17 @@ public class Pttrainer {
 
 ```
 
+## 폴리글랏 퍼시스턴스
+
+부분적으로 my-sql 사용할 수 있도록 deployment.yaml파일에 관련 내용 추가
+
+- persistentvolume_1
+![1](https://user-images.githubusercontent.com/19251601/91919739-ee7ad900-ed01-11ea-8883-d9b6f65451cc.PNG)
+
+- persistentvolume_2
+![2](https://user-images.githubusercontent.com/19251601/91919760-fe92b880-ed01-11ea-8128-4706df992eb5.PNG)
+
+
 
 ## 동기식 호출과 Fallback 처리
 
@@ -856,10 +867,30 @@ Shortest transaction:	        0.00
 ![image](https://user-images.githubusercontent.com/19251601/91865382-4e469500-ecac-11ea-8f14-3ad6f75ac7e7.png)
 
 
-## ConfigMAp 적용
+- live_deploy_update(무정지 배포에 추가)
+![live_deploy_update](https://user-images.githubusercontent.com/19251601/91919962-a14b3700-ed02-11ea-84a9-3075bb5ab2d6.PNG)
+
+- liveness_readiness_after(무정지 배포에 추가)
+![liveness_readiness_after](https://user-images.githubusercontent.com/19251601/91919973-ae682600-ed02-11ea-9f03-b1caf994849a.PNG)
+
+- liveness_readiness_before(무정지 배포에 추가)
+![liveness_readiness_before](https://user-images.githubusercontent.com/19251601/91920008-baec7e80-ed02-11ea-8ada-95cd2e6810e8.PNG)
+
+
+## ConfigMap 적용
   - 설정의 외부주입을 통한 유연성을 제공하기 위해 ConfigMap 사용
+![configmap](https://user-images.githubusercontent.com/19251601/91919835-37cb2880-ed02-11ea-80ee-27819089ac5e.PNG)
   
   
+## Secret 적용
+
+- config_secret_deployment
+![config_secret_deployment](https://user-images.githubusercontent.com/19251601/91919822-2b46d000-ed02-11ea-839f-7c1b55c31e24.PNG)
+
+- configmap_secret_deployment.yaml
+![configmap_secret_deployment yaml](https://user-images.githubusercontent.com/19251601/91919856-46194480-ed02-11ea-985e-209e3c72da64.PNG)
+
+
 # 운영 모니터링
 
 ## 마스터 노드 모니터링
@@ -908,22 +939,22 @@ Amazon EKS 제어 플레인 모니터링/로깅은 Amazon EKS 제어 플레인�
 
 
 ##  캡쳐
-- scale_out_HPA
+- scale_out_HPA : (오토 
 ![scale_out_HPA](https://user-images.githubusercontent.com/19251601/91919704-c4c1b200-ed01-11ea-8ab0-f9e1ba451c78.PNG)
 
-- persistentvolume_1
+- persistentvolume_1 (폴리글랏 퍼시스턴스에 추가)
 ![1](https://user-images.githubusercontent.com/19251601/91919739-ee7ad900-ed01-11ea-8883-d9b6f65451cc.PNG)
 
-- persistentvolume_2
+- persistentvolume_2(폴리글랏 퍼시스턴스에 추가)
 ![2](https://user-images.githubusercontent.com/19251601/91919760-fe92b880-ed01-11ea-8128-4706df992eb5.PNG)
 
-- config_secret_deployment
+- config_secret_deployment(시크릿에 추가)
 ![config_secret_deployment](https://user-images.githubusercontent.com/19251601/91919822-2b46d000-ed02-11ea-839f-7c1b55c31e24.PNG)
 
-- configmap
+- configmap(컨피그맵에 추가)
 ![configmap](https://user-images.githubusercontent.com/19251601/91919835-37cb2880-ed02-11ea-80ee-27819089ac5e.PNG)
 
-- configmap_secret_deployment.yaml
+- configmap_secret_deployment.yaml(시크릿에 추가)
 ![configmap_secret_deployment yaml](https://user-images.githubusercontent.com/19251601/91919856-46194480-ed02-11ea-985e-209e3c72da64.PNG)
 
 - ptstatus_application_yaml
@@ -932,13 +963,13 @@ Amazon EKS 제어 플레인 모니터링/로깅은 Amazon EKS 제어 플레인�
 - secret
 ![secret](https://user-images.githubusercontent.com/19251601/91919886-5d583200-ed02-11ea-92cf-107aaf6fd4c1.PNG)
 
-- live_deploy_update
+- live_deploy_update(무정지 배포에 추가)
 ![live_deploy_update](https://user-images.githubusercontent.com/19251601/91919962-a14b3700-ed02-11ea-84a9-3075bb5ab2d6.PNG)
 
-- liveness_readiness_after
+- liveness_readiness_after(무정지 배포에 추가)
 ![liveness_readiness_after](https://user-images.githubusercontent.com/19251601/91919973-ae682600-ed02-11ea-9f03-b1caf994849a.PNG)
 
-- liveness_readiness_before
+- liveness_readiness_before(무정지 배포에 추가)
 ![liveness_readiness_before](https://user-images.githubusercontent.com/19251601/91920008-baec7e80-ed02-11ea-8ada-95cd2e6810e8.PNG)
 
 
@@ -968,7 +999,7 @@ Amazon EKS 제어 플레인 모니터링/로깅은 Amazon EKS 제어 플레인�
 - 4_statuses캡처
 ![4_statuses캡처](https://user-images.githubusercontent.com/19251601/91920227-64337480-ed03-11ea-98d4-e378152aa93a.PNG)
 
-- rolling_out
+- rolling_out (롤링 배포에 추가)
 ![rolling_out](https://user-images.githubusercontent.com/19251601/91920257-76151780-ed03-11ea-8e18-52efb2530181.PNG)
 
 -기본2_1
