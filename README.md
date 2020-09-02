@@ -786,53 +786,9 @@ hystrix:
 
 
 ##  캡쳐
-- scale_out_HPA : (오토 
-![scale_out_HPA](https://user-images.githubusercontent.com/19251601/91919704-c4c1b200-ed01-11ea-8ab0-f9e1ba451c78.PNG)
-
-- persistentvolume_1 (폴리글랏 퍼시스턴스에 추가)
-![1](https://user-images.githubusercontent.com/19251601/91919739-ee7ad900-ed01-11ea-8883-d9b6f65451cc.PNG)
-
-- persistentvolume_2(폴리글랏 퍼시스턴스에 추가)
-![2](https://user-images.githubusercontent.com/19251601/91919760-fe92b880-ed01-11ea-8128-4706df992eb5.PNG)
-
-- config_secret_deployment(시크릿에 추가)
-![config_secret_deployment](https://user-images.githubusercontent.com/19251601/91919822-2b46d000-ed02-11ea-839f-7c1b55c31e24.PNG)
-
-- configmap(컨피그맵에 추가)
-![configmap](https://user-images.githubusercontent.com/19251601/91919835-37cb2880-ed02-11ea-80ee-27819089ac5e.PNG)
-
-- configmap_secret_deployment.yaml(시크릿에 추가)
-![configmap_secret_deployment yaml](https://user-images.githubusercontent.com/19251601/91919856-46194480-ed02-11ea-985e-209e3c72da64.PNG)
-
-- ptstatus_application_yaml
-![ptstatus_application_yaml](https://user-images.githubusercontent.com/19251601/91919876-52050680-ed02-11ea-889f-000a064dd42b.PNG)
-
-- secret
-![secret](https://user-images.githubusercontent.com/19251601/91919886-5d583200-ed02-11ea-92cf-107aaf6fd4c1.PNG)
-
-- live_deploy_update(무정지 배포에 추가)
-![live_deploy_update](https://user-images.githubusercontent.com/19251601/91919962-a14b3700-ed02-11ea-84a9-3075bb5ab2d6.PNG)
-
-- liveness_readiness_after(무정지 배포에 추가)
-![liveness_readiness_after](https://user-images.githubusercontent.com/19251601/91919973-ae682600-ed02-11ea-9f03-b1caf994849a.PNG)
-
-- liveness_readiness_before(무정지 배포에 추가)
-![liveness_readiness_before](https://user-images.githubusercontent.com/19251601/91920008-baec7e80-ed02-11ea-8ada-95cd2e6810e8.PNG)
 
 
-- 0_kubectl_get_all_status
-![0_kubectl_get_all_status](https://user-images.githubusercontent.com/19251601/91920044-d35c9900-ed02-11ea-83fb-f7a0f4fd2283.PNG)
 
-
-- 1_POST_Consumer_Status
-![1_POST_Consumer_Status](https://user-images.githubusercontent.com/19251601/91920060-e66f6900-ed02-11ea-83a4-47c4471b3c5d.PNG)
-
-
-- 1_POST_http_cmd
-![1_POST_http_cmd](https://user-images.githubusercontent.com/19251601/91920136-1fa7d900-ed03-11ea-80ca-81bacf123509.PNG)
-
-- 2_consumer
-![2_consumer](https://user-images.githubusercontent.com/19251601/91920159-2d5d5e80-ed03-11ea-8166-a2c616ca3bbb.PNG)
 
 - 2_PATCH_RESULT_CREATED
 ![2_PATCH_RESULT_CREATED](https://user-images.githubusercontent.com/19251601/91920168-3c441100-ed03-11ea-91b6-2536450b4380.PNG)
@@ -845,6 +801,8 @@ hystrix:
 
 - 4_statuses캡처
 ![4_statuses캡처](https://user-images.githubusercontent.com/19251601/91920227-64337480-ed03-11ea-98d4-e378152aa93a.PNG)
+
+
 
 - rolling_out (롤링 배포에 추가)
 ![rolling_out](https://user-images.githubusercontent.com/19251601/91920257-76151780-ed03-11ea-8e18-52efb2530181.PNG)
