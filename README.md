@@ -455,12 +455,14 @@ public class Pttrainer {
 
 부분적으로 my-sql 사용할 수 있도록 deployment.yaml파일에 관련 내용 추가
 
-- persistentvolume_1
-![1](https://user-images.githubusercontent.com/19251601/91919739-ee7ad900-ed01-11ea-8883-d9b6f65451cc.PNG)
-
-- persistentvolume_2
-![2](https://user-images.githubusercontent.com/19251601/91919760-fe92b880-ed01-11ea-8128-4706df992eb5.PNG)
-
+'''
+pom.yml : mysql driver 설정
+                <dependency>
+                        <groupId>mysql</groupId>
+                        <artifactId>mysql-connector-java</artifactId>
+                        <scope>runtime</scope>
+                </dependency>
+'''
 
 
 ## 동기식 호출과 Fallback 처리
@@ -471,16 +473,7 @@ public class Pttrainer {
 ```
 # Ptmanager.java
 
-@FeignClient(name="feignpttrainer", url="${feignpttrainer.url}")
-public interface PttrainerService {
-
-    // @PostMapping(value="/pttrainer/{ptOrderId}")
-    // public void ptScheduleCancellation(@PathVariable("ptOrderId") Long ptOrderId, String status);
-
-    @RequestMapping(method = RequestMethod.POST, value = "/pttrainers")
-    // Store update(@PathVariable("storeId") Long storeId, Store store);
-    public void ptScheduleCancellation(@PathVariable("ptOrderId") Long ptTrainerId, @PathVariable("status") String status);
-}
+???????????????
 ```
 
 - '수강취소접수됨' 직후(@PostUpdate) '수업스케쥴취소'를 요청하도록 처리
@@ -490,14 +483,7 @@ public interface PttrainerService {
     @PostUpdate
     public void onPostUpdate(){
     try {
-            if(this.getStatus().equals("ORDER_CONFIRMED")) {
-                System.out.println("[HNR_DEBUG] ###################################");
-                System.out.println("[HNR_DEBUG] ######### ORDER_CONFIRMED #########");
-                System.out.println("[HNR_DEBUG] ###################################");
-                PtOrderConfirmed ptOrderConfirmed = new PtOrderConfirmed();
-                BeanUtils.copyProperties(this, ptOrderConfirmed);
-                ptOrderConfirmed.publishAfterCommit();
-            } else if(this.getStatus().equals("ORDER_CANCEL_ACCEPTED")) {
+    ...
            // REQ-RES 강사스케줄 취소
           System.out.println("[HNR_DEBUG] ###################################################");
           System.out.println("[HNR_DEBUG] ######### ORDER_CANCEL_ACCEPTED (REQ/RES) #########");
