@@ -785,33 +785,29 @@ hystrix:
 6. 오토 스케일링
 
 
-##  캡쳐
-
-
-
-
-- 2_PATCH_RESULT_CREATED
-![2_PATCH_RESULT_CREATED](https://user-images.githubusercontent.com/19251601/91920168-3c441100-ed03-11ea-91b6-2536450b4380.PNG)
-
-- 3_cancel_consumer
-![3_cancel_consumer](https://user-images.githubusercontent.com/19251601/91920192-49610000-ed03-11ea-86e3-fd025f5a5683.PNG)
-
-- 3_CANCEL_ORDER
-![3_CANCEL_ORDER](https://user-images.githubusercontent.com/19251601/91920210-57af1c00-ed03-11ea-8808-3f4ba2f75dba.PNG)
+## 시연 캡쳐
 
 - 4_statuses캡처
 ![4_statuses캡처](https://user-images.githubusercontent.com/19251601/91920227-64337480-ed03-11ea-98d4-e378152aa93a.PNG)
 
-
-
-- rolling_out (롤링 배포에 추가)
-![rolling_out](https://user-images.githubusercontent.com/19251601/91920257-76151780-ed03-11ea-8e18-52efb2530181.PNG)
-
 -기본2_1
 ![1](https://user-images.githubusercontent.com/19251601/91920967-5252d100-ed05-11ea-8c27-10d80a52ca82.PNG)
+
+- 2_PATCH_RESULT_CREATED
+![2_PATCH_RESULT_CREATED](https://user-images.githubusercontent.com/19251601/91920168-3c441100-ed03-11ea-91b6-2536450b4380.PNG)
 
 -기본2_2
 ![2](https://user-images.githubusercontent.com/19251601/91921010-6b5b8200-ed05-11ea-9306-bf2b0d8187c6.PNG)
 
+- 3_CANCEL_ORDER
+![3_CANCEL_ORDER](https://user-images.githubusercontent.com/19251601/91920210-57af1c00-ed03-11ea-8808-3f4ba2f75dba.PNG)
+
 -기본2_3
 ![3](https://user-images.githubusercontent.com/19251601/91921032-7adacb00-ed05-11ea-8dde-7fdc55992811.PNG)
+
+- rolling_out (롤링 배포에 추가)
+![rolling_out](https://user-images.githubusercontent.com/19251601/91920257-76151780-ed03-11ea-8e18-52efb2530181.PNG)
+
+
+
+
