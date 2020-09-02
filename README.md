@@ -731,14 +731,13 @@ hystrix:
 
 * 부하테스터 siege 툴을 통한 서킷 브레이커 동작 확인:
 - siege 툴이 PATCH 기능을 지원하지 않아 테스트 실패
-- 장애격리 테스트는 ㅔPOST, REQ/RES 구조에서 테스트를 진행해야 할 것으로 보임
+- 장애격리 테스트는 POST, REQ/RES 구조에서 테스트를 진행해야 할 것으로 보임
 
 ![circuit_err](https://user-images.githubusercontent.com/19251601/91926277-e1fe7c80-ed11-11ea-8b7c-78283381d4cb.PNG)
 
 
 ### 오토스케일 아웃
-앞서 CB 는 시스템을 안정되게 운영할 수 있게 해줬지만 사용자의 요청을 100% 받아들여주지 못했기 때문에 이에 대한 보완책으로 자동화된 확장 기능을 적용하고자 한다. 
-
+자동화된 확장 기능을 적용
 
 - metric 서버 설치 후, 명령 $ kubectl autoscale deployment ptorder --cpu-percent=1 --min=1 --max=10 적용하여 스케일 아웃 되는 장면
 
