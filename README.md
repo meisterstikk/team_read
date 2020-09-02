@@ -486,52 +486,30 @@ CMD ["python", "policy-handler.py"]
 ```
 # Ptmanager.java
 
-package fooddelivery.external;
-
-@FeignClient(name="pay", url="http://localhost:8082")//, fallback = 결제이력ServiceFallback.class)
-public interface 결제이력Service {
-
-    @RequestMapping(method= RequestMethod.POST, path="/결제이력s")
-    public void 결제(@RequestBody 결제이력 pay);
-
-}
+???????????????
 ```
 
-- '수강취소접수됨' 직후(@PostPersist) '수업스케쥴취소'를 요청하도록 처리
+- '수강취소접수됨' 직후(@PostUpdate) '수업스케쥴취소'를 요청하도록 처리
 ```
-# Ptmanager.java (Entity)
+# Ptmanager.java
 
-    @PostPersist
-    public void onPostPersist(){
+    @PostUpdate
+    public void onPostUpdate(){
+    try {
+    ...
+           // REQ-RES 강사스케줄 취소
+          System.out.println("[HNR_DEBUG] ###################################################");
+          System.out.println("[HNR_DEBUG] ######### ORDER_CANCEL_ACCEPTED (REQ/RES) #########");
+          System.out.println("[HNR_DEBUG] ###################################################");
 
-        fooddelivery.external.결제이력 pay = new fooddelivery.external.결제이력();
-        pay.setOrderId(getOrderId());
-        
-        Application.applicationContext.getBean(fooddelivery.external.결제이력Service.class)
-                .결제(pay);
+          System.out.println("[HNR_DEBUG] getPtOrderId() : " + getPtOrderId());
+          PttrainerService pttrainerService = PtmanagerApplication.applicationContext.getBean(PttrainerService.class);
+          pttrainerService.ptScheduleCancellation(getPtOrderId(), "SCHEDULE_CANCELED");
+       }  catch (Exception e) {
+            e.printStackTrace();
+       }
     }
 ```
-
-- 동기식 호출에서는 호출 시간에 따른 타임 커플링이 발생하며, 결제 시스템이 장애가 나면 주문도 못받는다는 것을 확인:
-
-
-```
-# 결제 (pay) 서비스를 잠시 내려놓음 (ctrl+c)
-
-#주문처리
-http localhost:8081/orders item=통닭 storeId=1   #Fail
-http localhost:8081/orders item=피자 storeId=2   #Fail
-
-#결제서비스 재기동
-cd 결제
-mvn spring-boot:run
-
-#주문처리
-http localhost:8081/orders item=통닭 storeId=1   #Success
-http localhost:8081/orders item=피자 storeId=2   #Success
-```
-
-- 또한 과도한 요청시에 서비스 장애가 도미노 처럼 벌어질 수 있다. (서킷브레이커, 폴백 처리는 운영단계에서 설명한다.)
 
 
 
