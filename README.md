@@ -764,6 +764,8 @@ hystrix:
 ![configmap](https://user-images.githubusercontent.com/19251601/91919835-37cb2880-ed02-11ea-80ee-27819089ac5e.PNG)
 
 ![secret](https://user-images.githubusercontent.com/19251601/91919886-5d583200-ed02-11ea-92cf-107aaf6fd4c1.PNG)
+
+![ptstatus_application_yaml](https://user-images.githubusercontent.com/19251601/91919876-52050680-ed02-11ea-889f-000a064dd42b.PNG)
   
 ## Secret 적용
 
