@@ -760,47 +760,43 @@ hystrix:
 ## ConfigMap 적용
   - 설정의 외부주입을 통한 유연성을 제공하기 위해 ConfigMap 사용
 ![configmap](https://user-images.githubusercontent.com/19251601/91919835-37cb2880-ed02-11ea-80ee-27819089ac5e.PNG)
-
 ![secret](https://user-images.githubusercontent.com/19251601/91919886-5d583200-ed02-11ea-92cf-107aaf6fd4c1.PNG)
-
 ![ptstatus_application_yaml](https://user-images.githubusercontent.com/19251601/91919876-52050680-ed02-11ea-889f-000a064dd42b.PNG)
   
 ## Secret 적용
-
 ![config_secret_deployment](https://user-images.githubusercontent.com/19251601/91919822-2b46d000-ed02-11ea-839f-7c1b55c31e24.PNG)
-
-
 
 # 시연 시나리오
 
 1. 수강신청 이후 수강신청건 상태(스케쥴 확정)
 2. 수업결과 등록 이후 수업결과 완료 상태
 3. 수강신청 취소
-4.1 고객관리 서비스 장애상황에서의 수강신청
-4.2 고객관리 서비스 장애상황 복구 후 수강신청 상처리
-4.3 고객관리 서비스 장애상황에서의 수강취소 신청
+4.1. 고객관리 서비스 장애상황에서의 수강신청
+4.2. 고객관리 서비스 장애상황 복구 후 수강신청 상처리
+4.3. 고객관리 서비스 장애상황에서의 수강취소 신청
 5. 무정지 배포
 6. 오토 스케일링
 
 
 ## 시연 캡쳐
 
-- 1.수강신청
-![4_statuses캡처](https://user-images.githubusercontent.com/19251601/91920227-64337480-ed03-11ea-98d4-e378152aa93a.PNG)
+1. 수강신청
 
+![4_statuses캡처](https://user-images.githubusercontent.com/19251601/91920227-64337480-ed03-11ea-98d4-e378152aa93a.PNG)
 ![1](https://user-images.githubusercontent.com/19251601/91920967-5252d100-ed05-11ea-8c27-10d80a52ca82.PNG)
 
-- 2. 수업결과 등록
-![2_PATCH_RESULT_CREATED](https://user-images.githubusercontent.com/19251601/91920168-3c441100-ed03-11ea-91b6-2536450b4380.PNG)
+2. 수업결과 등록
 
+![2_PATCH_RESULT_CREATED](https://user-images.githubusercontent.com/19251601/91920168-3c441100-ed03-11ea-91b6-2536450b4380.PNG)
 ![2](https://user-images.githubusercontent.com/19251601/91921010-6b5b8200-ed05-11ea-9306-bf2b0d8187c6.PNG)
 
-- 3.수강 취소
-![3_CANCEL_ORDER](https://user-images.githubusercontent.com/19251601/91920210-57af1c00-ed03-11ea-8808-3f4ba2f75dba.PNG)
+3. 수강 취소
 
+![3_CANCEL_ORDER](https://user-images.githubusercontent.com/19251601/91920210-57af1c00-ed03-11ea-8808-3f4ba2f75dba.PNG)
 ![3](https://user-images.githubusercontent.com/19251601/91921032-7adacb00-ed05-11ea-8dde-7fdc55992811.PNG)
 
-- HPA 이후 image 교체로 rolling_out 중
+4. HPA 이후 image 교체로 rolling_out 중
+
 ![rolling_out](https://user-images.githubusercontent.com/19251601/91920257-76151780-ed03-11ea-8e18-52efb2530181.PNG)
 
 
