@@ -455,14 +455,14 @@ public class Pttrainer {
 
 부분적으로 my-sql 사용할 수 있도록 deployment.yaml파일에 관련 내용 추가
 
-'''
+```
 pom.yml : mysql driver 설정
                 <dependency>
                         <groupId>mysql</groupId>
                         <artifactId>mysql-connector-java</artifactId>
                         <scope>runtime</scope>
                 </dependency>
-'''
+```
 
 
 ## 동기식 호출과 Fallback 처리
